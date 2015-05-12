@@ -7,7 +7,7 @@ public class Solution {
         int sum=0;
         while(back<n){
             int cur = nums[back];
-            if(cur==s) return 1;
+            if(cur>=s) return 1;
             sum += cur;
             if(sum >=s){
                 min_size = Math.min(min_size, back-front+1);
