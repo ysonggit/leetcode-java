@@ -1,4 +1,5 @@
 public class Solution {
+    // similar to unique binary search trees
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<String>();
         if(n==0) {
