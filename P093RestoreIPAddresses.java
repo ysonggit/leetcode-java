@@ -11,7 +11,6 @@ public class Solution {
             res.add(ip.toString());
             return;
         }
-        int max_len = Math.max(3, n - cur_idx); // make sure cur_idx does not exceed range bound
         for (int len=1; len <= 3; len++){
             if(cur_idx+len>n) break;
             String num = s.substring(cur_idx, cur_idx+len);
