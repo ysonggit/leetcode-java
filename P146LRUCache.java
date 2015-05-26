@@ -28,7 +28,7 @@ public class LRUCache {
             cache.put(key, value);
             return;
         }
-        if(cache.size()==size) { // find the eldest entry and remove
+        if(cache.size()==size) { // find the least visited entry and remove
             cache.remove(cache.entrySet().iterator().next().getKey());
         }
         cache.put(key, value);
