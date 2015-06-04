@@ -1,5 +1,6 @@
 public class Solution {
     // (())(())
+    // key: use stack to save the positions of unmatched left parentheses 
     public int longestValidParentheses(String s) {
         int n = s.length();
         if(n==0) return 0;
