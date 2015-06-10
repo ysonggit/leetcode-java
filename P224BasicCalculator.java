@@ -1,4 +1,21 @@
 public class Solution {
+    /*
+    solution from victorlee:
+    two stacks, stack1 saves operators: ) and +/-, stack2 saves numbers
+    scan expression from right to left
+        (4-(3-2))
+        stack1  stack2
+        )
+        ))
+                 2
+        ))-         
+                 2,3
+                 
+        )        1
+        )-
+                 1,4
+                 3
+    */
     public void compute(Stack<Character> operators, Stack<Integer> operands){
         Integer a = operands.pop();
         Integer b = operands.pop();
