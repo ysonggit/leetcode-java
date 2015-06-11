@@ -14,50 +14,62 @@ public class Solution {
         return -1;
     }
 }
-
 public class Solution {
     /* KMP
-       create failure function, table T[i] means
-       the steps of backtracking if needle[i] != haystack[m+i],  
-       restart search from needle [T[i]], haystack[m+i-T[i]]
+       create prefix table T[j] means the length of the longest prefix of string P
+       that is the suffix of P[i..j]
+       Example:
+        j    0 1 2 3 4 5
+       P[j]  a b a c a b
+       T[j]  0 0 1 0 1 2
+       T[2] = 1 means the length of the longest prefix of string P ('a') is also the suffix of P[0..2] (aba)
+        
+        i   0 1 2 3 4 5 6 7 8 9
+        S:	a b	a c	a a	b a	c c
+        P:	a b	a c	a b
+       mismatch at index 5 : S[5] != P[5]
+        
+       the steps of backtracking is T[j-1] = T[4] = 1 
+       restart search from  P[T[j-1]], S[i]
+       
+        j   0 1 2 3 4 5 6 7 8 9
+        S:	a b	a c	a a	b a	c c
+        P:	    	a b a c a b
+       
     */
-    public void computeFailureFunction(int []T, String W){
-        T[0] = -1;
-        T[1] = 0;
-        int idx = 0, pos = 2;
-        while(pos<W.length()){
-            if(W.charAt(idx) == W.charAt(pos-1)){
-                idx++;
-                T[pos] = idx;
-                pos++;
-            }else if(idx > 0){
-                // restore idx
-                idx = T[idx];
+    public void computePrefixTable(int []T, String P){
+        T[0] = 0;
+        int i = 0, j = 1;
+        while(j<P.length()){
+            if(P.charAt(i) == P.charAt(j)){
+                i++;
+                T[j] = i;
+                j++;
+            }else if(i > 0){
+                // restore i
+                i = T[i-1];
             }else{
-                T[pos]=0;
-                pos++;
+                T[j]=0;
+                j++;
             }
         }
     }
     public int strStr(String haystack, String needle) {
-        int n = needle.length();
-        if(n==0 ) return 0;
-        if(n==1) return haystack.indexOf(needle.charAt(0));
-        int []T = new int[n];
-        computeFailureFunction(T, needle);
-        int m=0, i=0;
-        while(m+i<haystack.length()){
-            if(haystack.charAt(m+i) == needle.charAt(i)){
+        int n = haystack.length();
+        int m = needle.length();
+        if(m==0 ) return 0;
+        int []T = new int[m];
+        computePrefixTable(T, needle);
+        int i=0, j=0;
+        while(i<haystack.length()){
+            if(haystack.charAt(i) == needle.charAt(j)){
+                if(j==m-1) return i-j;
                 i++;
-                if(i==n) return m;
+                j++;
+            }else if(j>0){
+                j = T[j-1];
             }else{
-                if(T[i]>-1){
-                    m=m+i-T[i];
-                    i=T[i];
-                }else{
-                    m++;
-                    i=0;
-                }
+                i++;
             }
         }
         return -1;
