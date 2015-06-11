@@ -35,6 +35,8 @@ public class Solution {
         j   0 1 2 3 4 5 6 7 8 9
         S:	a b	a c	a a	b a	c c
         P:	    	a b a c a b
+        
+        Detail Notes: https://zybuluo.com/ysongzybl/note/115318
        
     */
     public void computePrefixTable(int []T, String P){
