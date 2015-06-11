@@ -67,7 +67,9 @@ public class Solution {
                 i++;
                 j++;
             }else if(j>0){
-                j = T[j-1];
+                // i falls back T[j-1] steps, match needle from start (j=0)
+                i = i - T[j-1];
+                j = 0;
             }else{
                 i++;
             }
