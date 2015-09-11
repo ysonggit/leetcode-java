@@ -21,3 +21,22 @@ public class Solution {
         return max_len;
     }
 }
+/**
+ * official solution
+ public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int i=0, max_len = 0;
+        int count [] = new int [256];
+        Arrays.fill(count, -1);
+        for(int j=0; j<s.length(); j++){
+            if(count[s.charAt(j)]>=i){
+                i= count[s.charAt(j)]+1;
+            }
+            count[s.charAt(j)] = j;
+            max_len = Math.max(max_len, j-i+1);
+        }
+        return max_len;
+    }
+}
+*/
+
