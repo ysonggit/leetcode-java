@@ -8,25 +8,16 @@ public class Vector2D {
     }
 
     public int next() {
-        int val = mat.get(x).get(y);
-        y++;
-        //System.out.println("Mat("+x+","+y+"):"+val);
-        if(y>= mat.get(x).size()){
-            x++;
-            y=0;
-        }
-        return val;
+        return mat.get(x).get(y++);
     }
 
     public boolean hasNext() {
        if(mat.size()==0) return false;
-       if(x>=mat.size()) return false; // must check before while
-       while(mat.get(x).size()==0) {   // must have a while loop to filter first several empty rows
-            x++;
-            if(x>= mat.size() ) return false;
+       while(x<mat.size() && y>=mat.get(x).size()) {
+           x++;
+           y = 0;
        }
-       if(y>= mat.get(x).size()) return false;
-       return true;
+       return (x<mat.size()) ? true : false;
     }
 }
 
