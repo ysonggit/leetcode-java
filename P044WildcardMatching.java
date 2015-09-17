@@ -1,4 +1,4 @@
-{
+public class Solution {
       /**
      * '*' - any sequence including empty
      * D[i][j] : the first i characters in s match first j characters in p
