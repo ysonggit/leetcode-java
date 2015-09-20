@@ -1,18 +1,19 @@
 public class Solution {
-    // basic solution: search from top right corner
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length;
         if(m==0) return false;
         int n = matrix[0].length;
-        int row = 0, col = n-1;
-        while(row<m && col>=0){
-            int cur = matrix[row][col];
-            if(target == cur) {
+        int low = 0, high = m * n;
+        while(low<high){
+            int mid = low+(high-low)/2;
+            // row major order index
+            int i= mid/n, j = mid%n;
+            if(target == matrix[i][j]){
                 return true;
-            }else if(target < cur){
-                col--;
+            }else if(target < matrix[i][j]){
+                high = mid; // mistake: not mid-1
             }else{
-                row++;
+                low = mid+1;
             }
         }
         return false;
