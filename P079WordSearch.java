@@ -1,13 +1,13 @@
 public class Solution {
-    public boolean dfs(char [][] board, String word, int cur_idx, int i, int j, boolean[][] visited){
+    public boolean dfs(char [][] board, String word, int cur_idx, 
+                    int i, int j, boolean[][] visited){
         int m = board.length, n = board[0].length;
         if(i<0||j<0||i==m||j==n) return false;
-        if(visited[i][j]) return false;
+        boolean visited [][] = new boolean[m][n];
         if(board[i][j]!=word.charAt(cur_idx)) return false;
-        if(cur_idx==word.length()-1) return true; // mistake : cur_idx == word.length() -> outrange error
+        if(cur_idx==word.length()-1) return true;
         visited[i][j] = true;
-        boolean found = false;
-        found = dfs(board, word, cur_idx+1, i+1, j, visited) || 
+        boolean found = dfs(board, word, cur_idx+1, i+1, j, visited) || 
             dfs(board, word, cur_idx+1, i-1, j, visited) || 
             dfs(board, word, cur_idx+1, i, j+1, visited) || 
             dfs(board, word, cur_idx+1, i, j-1, visited);
@@ -18,10 +18,11 @@ public class Solution {
         int m = board.length;
         if(m==0) return word.length()==0;
         int n = board[0].length;
+        boolean visited [][] = new boolean[m][n];
         for(int i=0; i<m ; i++){
             for(int j=0; j<n; j++){
-                boolean visited [][] = new boolean[m][n];
-                if( dfs(board, word, 0, i, j, visited)) return true;
+                if(word.charAt(0)==board[i][j] && 
+                    dfs(board, word, 0, i, j, visited)) return true;
             }
         }
         return false;
