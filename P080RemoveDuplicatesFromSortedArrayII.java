@@ -6,16 +6,12 @@ public class Solution {
         int count = 1;
         for(int i = 1; i<n; i++){
             if(nums[i] != nums[i-1]){
-                nums[j] = nums[i]; 
-                j++;
+                nums[j++] = nums[i]; 
                 count = 1;
             }else{
                 count++;
-                if(count>2){
-                    continue;
-                }else{
-                    nums[j] = nums[i];
-                    j++;
+                if(count<=2){
+                    nums[j++] = nums[i];
                 }
             }
         }
