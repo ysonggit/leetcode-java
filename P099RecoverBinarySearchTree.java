@@ -24,12 +24,8 @@ public class Solution {
                 if(cur.right != null){
                     // replace Outputting root.val with order check
                     if(pre!=null && pre.val > root.val){
-                        if(first==null) {
-                            first = pre;
-                            second = root;
-                        }else{
-                            second = root;
-                        }
+                        if(first==null)  first = pre;
+                        second = root;
                     }
                     pre = root;
                     cur.right = null;
@@ -42,12 +38,8 @@ public class Solution {
             }else{
                 // replace Outputting root.val with order check
                 if(pre!=null && pre.val > root.val){
-                    if(first==null) {
-                        first = pre;
-                        second = root;
-                    }else{
-                        second = root;
-                    }
+                    if(first==null)   first = pre;
+                    second = root;
                 }
                 pre = root;
                 root = root.right;
