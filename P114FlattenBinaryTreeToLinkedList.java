@@ -18,7 +18,7 @@
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
- * Bottom Up Recursion
+ * Top Down Recursion
  * For each node
  * 1) flatten left subtree and right subtree
  * 2) if flattened left subtree is not null, 
