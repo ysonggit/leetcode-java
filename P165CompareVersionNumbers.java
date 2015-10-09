@@ -1,23 +1,19 @@
 public class Solution {
-    // idea : compare each segment (between dot) by converting them to long (overflow)
     public int compareVersion(String version1, String version2) {
-        int n = version1.length(), m = version2.length();
-        if(n== 0 || m==0) return 0;
+        String v1[] = (version1.concat(".")).split("\\."); // mistake: must use \\.
+        String v2[] = (version2.concat(".")).split("\\.");
+        int val1 = 0, val2 = 0;
         int i=0, j=0;
-        while(i<=n || j<=m){
-            long a = 0, b=0;
-            while(i<n && version1.charAt(i)!='.'){
-                a = a * 10 + (int) (version1.charAt(i)-'0');
+        System.out.println(v1.length+" + "+v2.length);
+        while(i<v1.length || j<v2.length){
+            val1 = (i<v1.length) ? Integer.valueOf(v1[i]) : 0;
+            val2 = (j<v2.length) ? Integer.valueOf(v2[j]) : 0;
+            if(val1>val2) return 1;
+            else if(val1<val2) return -1;
+            else{
                 i++;
-            }
-            i++; // important ! must skip dot, so next time can compute next segment 
-            while(j<m && version2.charAt(j)!='.'){
-                b = b * 10 + (int) (version2.charAt(j)-'0');
                 j++;
             }
-            j++; 
-            if(a > b) return 1;
-            if(a < b) return -1;
         }
         return 0;
     }
