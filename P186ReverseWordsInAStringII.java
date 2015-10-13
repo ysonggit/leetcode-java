@@ -1,32 +1,24 @@
 public class Solution {
-    public void reverse(char [] s, int front, int back){
-        while(front<back){
-            char tmp = s[back];
-            s[back] = s[front];
-            s[front] = tmp;
-            front++;
-            back--;
+    public void reverseInplace(char[] s, int start, int end){
+        while(start<end){
+            char tmp = s[start];
+            s[start] = s[end];
+            s[end] = tmp;
+            start++;
+            end--;
         }
     }
     public void reverseWords(char[] s) {
         int n = s.length;
-        if(n<2) return;
-        int front = 0, back = n-1;
-        // reverse entire array
-        reverse(s, front, back);
-        // reverse each word 
-        int start =0, end=0;
-        while(end<n){
-            if(s[end]!=' ' && s[start]!=' '){ 
-                end++;
-            }
-            if(end==n || s[end]==' '){ // mistake: end==n not n-1
-                front = start;
-                back = end-1;
-                reverse(s, front, back);
-                end++;
-                start=end;
-            }
+        if(n==0) return;
+        int i = 0, start = 0, end=0;
+        reverseInplace(s, 0, n-1);
+        while(i<n){
+            while(i<n && s[i]!=' ') i++; //mistake: don't forget i<n!
+            end = i-1;
+            reverseInplace(s, start, end);
+            start = i+1;
+            i++;
         }
     }
 }
