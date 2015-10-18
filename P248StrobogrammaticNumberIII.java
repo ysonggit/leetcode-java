@@ -32,7 +32,6 @@ public class Solution {
         Collections.sort(res);
         return res;
     }
-    
     public int strobogrammaticInRange(String low, String high) {
         if(less_than(high, low)) return 0;
         int m = low.length(), n = high.length();
@@ -68,11 +67,8 @@ public class Solution {
         if(m==n) return count; // 101 181
         for(int i=0; i<n_digit_strobo.size(); i++){
             String num = n_digit_strobo.get(i);
-            if(less_than(num, high) || num.equals(high)){
-                  if(less_than(low, num) || num.equals(low)){
-                      count++;
-                  }
-            } 
+            if(less_than(num, high) || num.equals(high)) count++;
+            else break;
         }
         return count;
     }
