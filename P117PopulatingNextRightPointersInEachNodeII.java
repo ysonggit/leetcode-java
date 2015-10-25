@@ -7,29 +7,24 @@
  * }
  */
 public class Solution {
-    public TreeLinkNode closestRight(TreeLinkNode upper_level_node){
-        if(upper_level_node==null) return null;
-        if(upper_level_node.left!=null) return upper_level_node.left;
-        if(upper_level_node.right!=null) return upper_level_node.right;
-        return closestRight(upper_level_node.next); // keep on look for the next upper level node's child
-    } 
-    public TreeLinkNode topDownRecur(TreeLinkNode root, TreeLinkNode upper_level_node){
-        if(root==null) return null;
-        if(upper_level_node!=null && root == upper_level_node.right){
-            root.next = closestRight(upper_level_node.next);
+    public TreeLinkNode nearestCousin(TreeLinkNode parent){
+        if(parent == null) return null;
+        if(parent.left!=null) return parent.left;
+        if(parent.right!=null) return parent.right;
+        return nearestCousin(parent.next);
+    }
+    public void populate(TreeLinkNode root, TreeLinkNode parent){
+        if(root == null) return;
+        if(parent!=null && parent.right==root){
+            root.next = nearestCousin(parent.next);
         }
-        if(upper_level_node!=null && root == upper_level_node.left){
-            if(upper_level_node.right != null) {
-                root.next = upper_level_node.right;
-            }else{
-                root.next = closestRight(upper_level_node.next);
-            }
+        if(parent!=null && parent.left==root){
+            root.next = (parent.right != null) ? parent.right : nearestCousin(parent.next);
         }
-        root.right = topDownRecur(root.right, root);
-        root.left = topDownRecur(root.left, root);
-        return root;
+        populate(root.right, root);
+        populate(root.left, root);
     }
     public void connect(TreeLinkNode root) {
-        root = topDownRecur(root, null);
+        populate(root, null);
     }
 }
