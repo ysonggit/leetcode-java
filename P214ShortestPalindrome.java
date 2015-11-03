@@ -1,4 +1,4 @@
-public class Solution {
+public class Solution1 {
     // KMP compute prefix table T[0] means the length of the longest
     // prefix of s that is also the suffix of s[0...j]
     // see strstr
@@ -40,5 +40,24 @@ public class Solution {
         // length of the longest prefix of p that is also the suffix of p
         int len_longest_prefix = T[2*n-1];
         return rev.substring(0, n-len_longest_prefix)+s;
+    }
+}
+
+public class Solution2 {
+    public String shortestPalindrome(String s) {
+        int n = s.length();
+        if(n<2) return s;
+        // find the first index that makes s non-palindrome
+        int j = 0;
+        for(int i=n-1; i>=0; i--){
+            if(s.charAt(j)==s.charAt(i)){
+                j++;
+            }
+        }
+        if(j==n) return s; // s is a palindrom already
+        String suffix = s.substring(j);
+        String prefix = new StringBuilder(suffix).reverse().toString();
+        String mid = s.substring(0, j);
+        return prefix + shortestPalindrome(mid) + suffix;
     }
 }
