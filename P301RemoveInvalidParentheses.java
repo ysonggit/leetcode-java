@@ -17,7 +17,7 @@ public class Solution {
         HashSet<String> visited = new HashSet<String>();
         Queue<String> Q = new LinkedList<String>();
         Q.offer(s);
-        Q.offer(null);
+        Q.offer(null); // trick: null acts as a marker, means this level is done
         int max_len = 0;
         while(!Q.isEmpty()){
             String cur = Q.poll();
