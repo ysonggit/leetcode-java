@@ -1,4 +1,4 @@
-public class Solution {
+public class Solution1 {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         int n = prerequisites.length;
         if(n==0) return true;
@@ -33,6 +33,40 @@ public class Solution {
         }
         for(int i=0; i<numCourses; i++){
             if(indegree[i]!=0) return false; //has cycle
+        }
+        return true;
+    }
+}
+
+public class Solution2 {
+    // Tarjan's algorithm
+    public boolean dfs(Map<Integer, ArrayList<Integer>> pre_posts, 
+            boolean [] marked, boolean [] visited, int cur){
+        if(marked[cur]) return true; 
+        if(visited[cur]) return false; // NOT a DAG
+        visited[cur] = true;
+        // visit each post of cur
+        if(pre_posts.containsKey(cur)){
+            for(int next : pre_posts.get(cur)){
+                if(!dfs(pre_posts, marked, visited, next)) return false;
+            }
+        }
+        marked[cur] = true;
+        visited[cur] = false;
+        return true;
+    }
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // construct graph
+        Map<Integer, ArrayList<Integer>> pre_posts = new HashMap<Integer, ArrayList<Integer>>();
+        for(int[] pair : prerequisites){
+            int pre = pair[1], post = pair[0];
+            if(!pre_posts.containsKey(pre)) pre_posts.put(pre, new ArrayList<Integer>());
+            pre_posts.get(pre).add(post);
+        }
+        boolean [] marked = new boolean[numCourses];
+        boolean [] visited= new boolean[numCourses];
+        for(int i=0; i<numCourses; i++){
+            if(!dfs(pre_posts, marked, visited, i)) return false;
         }
         return true;
     }
