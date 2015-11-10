@@ -1,4 +1,4 @@
-public class Solution {
+public class Solution1 {
     /*
     solution from victorlee:
     two stacks, stack1 saves operators: ) and +/-, stack2 saves numbers
@@ -52,5 +52,35 @@ public class Solution {
         }
         while(!operators.empty()) compute(operators, operands);
         return operands.peek();
+    }
+}
+
+public class Solution2 {
+    public int calculate(String s) {
+        int res = 0, num = 0, sign = 1;
+        Stack<Integer> ops = new Stack<Integer>();
+        Stack<Integer> sums = new Stack<Integer>();
+        for(char c : s.toCharArray()){
+            if(c==' ') continue;
+            else if(Character.isDigit(c)){ // assume no overflow happens
+                num = num * 10 + (int)(c-'0');
+            }else{
+                // evaluate expr locally
+                res += sign * num;
+                num = 0;
+                if(c=='+') sign= 1;
+                if(c=='-') sign=-1;
+                if(c=='('){
+                    sums.push(res);
+                    ops.push(sign);
+                    sign = 1;
+                    res = 0;
+                }
+                if(c==')' && !ops.empty()){
+                    res = sums.pop() + ops.pop() * res;
+                }
+            }
+        }
+        return res + sign * num; // 8
     }
 }
