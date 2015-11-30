@@ -1,4 +1,5 @@
-public class NumArray {
+public class NumArray1 {
+    // Segment Tree
     class SegmentTreeNode{
         int start, end, sum;
         SegmentTreeNode left, right;
@@ -52,6 +53,48 @@ public class NumArray {
 
     public int sumRange(int i, int j) {
         return query(root, i, j);
+    }
+}
+
+
+// Your NumArray object will be instantiated and called as such:
+// NumArray numArray = new NumArray(nums);
+// numArray.sumRange(0, 1);
+// numArray.update(1, 10);
+// numArray.sumRange(1, 2);
+
+public class NumArray2 {
+    // Binary Indexed Tree
+    int n;
+    int [] tree;
+    int [] data;
+    public NumArray(int[] nums) {
+        n = nums.length;
+        tree = new int [n+1];
+        data = new int [n];
+        for(int i=0; i<n; i++){
+            update(i, nums[i]);
+        }
+    }
+
+    void update(int i, int val) {
+        int diff = val - data[i]; 
+        data[i] = val;
+        for(int idx = i+1; idx<=n; idx+=(idx&(-idx))){
+            tree[idx] += diff;
+        }
+    }
+
+    public int sumRange(int i, int j) {
+        return sum(j+1) - sum(i);
+    }
+    
+    public int sum(int i){
+        int s =0;
+        for(int idx=i; idx>0; idx-=(idx&(-idx))){
+            s+=tree[idx];
+        }
+        return s;
     }
 }
 
