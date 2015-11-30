@@ -6,8 +6,13 @@ public class Solution {
         int [][] res = new int [m][k];
         for(int i=0; i<m; i++){
             for(int j=0; j<n; j++){
-                for(int l=0; l<k; l++){
-                    if(A[i][j]!=0) res[i][l] += A[i][j] * B[j][l];
+                //for(int l=0; l<k; l++){
+                //    if(A[i][j]!=0) res[i][l] += A[i][j] * B[j][l];
+                //}
+                if(A[i][j]!=0) {
+                    for(int l=0; l<k; l++){
+                        res[i][l] += A[i][j] * B[j][l];
+                    }
                 }
             }
         }
