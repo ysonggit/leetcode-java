@@ -1,4 +1,35 @@
 public class Solution {
+    // recursive (brute-force) 
+    int [][] cache; // memorization to pass TLE
+    public int maxSum(int[] nums, int i, int j){
+        if(cache[i+1][j]>=0) return cache[i+1][j];
+        if(i>j) return 0;
+        int n = nums.length;
+        int max_sum = 0; 
+        for(int k=i+1; k<j; k++){
+            int left = (i==-1) ? 1 : nums[i];
+            int right = (j==n) ? 1 : nums[j];
+            int local =  maxSum(nums, i, k)+maxSum(nums, k, j)+left*nums[k]*right;
+            if(max_sum < local){
+               max_sum = local;
+            }
+        }
+        cache[i+1][j]= max_sum;
+        return max_sum;
+    }
+    public int maxCoins(int[] nums) {
+        int n = nums.length;
+        if(n==0) return 0;
+        cache = new int[n+1][n+1];
+        for(int i=0; i<=n; i++){
+            for(int j=0; j<=n; j++) cache[i][j]=-1;
+        }
+        return maxSum(nums, -1, n);
+    }
+}
+
+public class Solution {
+    // DP
     // similar to Matrix Chain Multiplication
     public int maxCoins(int[] nums) {
         int [] A = new int[nums.length+2];
