@@ -1,18 +1,18 @@
-public class Solution {
-    /*
-        y = (n%2==1) ? x : 1
-        x^n = x^(n/2) * x^(n/2) * y
-        n could be negative
-        corner case: x = -1.0 or x = 1.0
-    */
-    public double myPow(double x, int n) {
-        if(n==0) return 1.0;
-        if(n==1) return x;
-        if(Double.compare(x, 1.0) == 0) return 1.0;
-        if(Double.compare(x, -1.0) ==0) return (n%2==1) ? x : 1.0;
-        if(n<0) return 1.0/myPow(x, -n);
-        double y = (n%2==1) ? x : 1;
-        double z = myPow(x, n/2);
-        return z * z * y;
+class Solution {
+    public double myPow(double x, int n) { // overflow issue? YES!
+        long m = (long) n;
+        if (m<0){
+            x = 1.0/x;
+            m = -m; // tricky. when n = -2147483648, -n is overflow
+        }
+        double res = 1.0;
+        while(m>0){
+            if (m%2==1){
+                res *= x;
+            }
+            x *= x;
+            m >>= 1;
+        }
+        return res;
     }
 }
